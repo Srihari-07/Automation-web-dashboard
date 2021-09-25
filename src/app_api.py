@@ -6,8 +6,9 @@ api_bp = Blueprint("main", __name__)
 # Status API
 @api_bp.route("/status/<int:task_id>", methods=["GET"])
 def get_status(task_id):
-    id_status = getTaskStatus(task_id)
-	return id_status
+    task = getTaskStatus(task_id)
+    return jsonify(task),200
+        
 
 # Start API:
 @api_bp.route("/downloads_Organizer/start", methods=["POST"])
