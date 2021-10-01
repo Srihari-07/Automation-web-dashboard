@@ -19,8 +19,7 @@ def organize_Downloads():
 	downloads_path = Path.home() / "Downloads" # Download's Path
 
 	if not downloads_path.exists():  # Checking if Download's Folder exists
-		print("Downloads folder not found.")
-		return
+		return False 
 
 	for item in downloads_path.iterdir():
 		if item.is_dir():
@@ -41,12 +40,13 @@ def organize_Downloads():
 			shutil.move(str(item), str(category_folder))
 			moved_files += 1
 		except Exception as e:
-			print(f"Could not move {item.name}: {e}")
 			skipped_files += 1
 
-	print("\nDownloads folder organized!")
-	print(f"Files moved: {moved_files}")
-	print(f"Files skipped: {skipped_files}")
+	return {
+        	"filesMoved" : moved_files,
+        	"skippedFiles" : skipped_files
+        }
+		
+        
+	
 
-if __name__ == "__main__":
-	organize_Downloads()

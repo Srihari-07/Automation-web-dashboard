@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>{% block title %} {% endblock %}</title>
-	 <link rel="stylesheet" href="static/css/shared.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/shared.css') }}">
 
 </head>
 <body>
@@ -17,6 +17,12 @@
 	<div class = "container">
 		<button id = "scriptBtn">{%block btnText%} {%endblock%}</button>
 	</div>
+
+	<div id = "output">
+		{% block output %}{% endblock %}
+	</div>
+
+	<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 </html>
