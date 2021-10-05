@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Automation Tool</title>
-	<link rel="stylesheet" href="static/css/styles.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
 <header>
@@ -17,28 +17,35 @@
 
 <div id = "automationTasksContainer">
 
-<div class = "automationTasks">Downloads folder organizer
+<div class = "automationTasks">
+	<h3 class = "automationTask">Downloads folder organizer</h3>
 	<a href="/automation/downloads_Organizer">
 	<button class = "homeBtns">Click</button>
 	</a>
 </div>
-<div class = "automationTasks">Disk usage checker
+<div class = "automationTasks">
+	<h3 class = "automationTask">Disk usage checker</h3>
 	<button class = "homeBtns">Click</button>
 </div>
-<div class = "automationTasks">Auto-backup important folders
+<div class = "automationTasks">
+	<h3 class = "automationTask">Auto-backup important folders</h3>
 	<button class = "homeBtns">Click</button>
 </div>
-<div class = "automationTasks">Backup script
+<div class = "automationTasks">
+	<h3 class = "automationTask">Backup script</h3>
 	<button class = "homeBtns">Click</button>
 </div>
-<div class = "automationTasks">Old files cleaner
+<div class = "automationTasks">
+	<h3 class = "automationTask">Old files cleaner</h3>
+	<button class = "homeBtns">Click</button>
+</div>
+<div class = "automationTasks">
+	<h3 class = "automationTask">Old files cleaner</h3>
 	<button class = "homeBtns">Click</button>
 </div>
 
 </div>
 
-
-<script src="static/js/script.js"></script>
 
 </body>
 </html>

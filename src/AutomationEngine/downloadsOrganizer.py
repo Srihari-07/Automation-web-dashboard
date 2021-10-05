@@ -43,8 +43,8 @@ def organize_Downloads():
 			skipped_files += 1
 
 	return {
-        	"filesMoved" : moved_files,
-        	"skippedFiles" : skipped_files
+        	"Files Moved" : moved_files,
+        	"Files Skipped" : skipped_files
         }
 		
         
