@@ -1,9 +1,14 @@
 * {
   box-sizing: border-box; /* Highly recommended for all projects */
 }
+body{
+    margin: 0px;
+    padding: 0px;
+    background-color: #221d1d;
+    color : white;
+}
 #mainTitle{
 	text-align: center;
-	color: #33333b;
 	font-weight: 600;
 	font-family: Graphik,Arial,sans-serif;
     margin: 0px 1rem;

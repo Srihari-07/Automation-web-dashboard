@@ -1,50 +1,36 @@
 const scriptBtn = document.getElementById("scriptBtn");
+const outputWindow = document.getElementById("output");
 const taskStatus = document.getElementById("taskStatus");
 
 // Frontend POLLING
-async function checkStatus(){
+async function checkStatus(taskID){
+    taskStatus.classList.add("taskStatus"); // Panel to show the Task Status.
 
-    const response = await fetch("/api/downloads_Organizer/status", { method: "POST" });
+    const response = await fetch(`/api/downloads_Organizer/status/${taskID}`, { method: "GET" });
     const data = await response.json();
-    taskStatus.classList.add("taskStatus");
+
     taskStatus.innerText = data.status;
 
-    if(data.status === "running"){
-        setTimeout(checkStatus,1000)
+    if(!response.ok){  // If the response code is between 400 to 500
+        outputWindow.innerHTML = data.error;
+        return;
     }
-}
+    else if(data.status === "running"){
+        setTimeout(() => checkStatus(taskID), 1000);
+    }
+    else if(data.status === "failed"){
+        outputWindow.innerHTML = "";
 
-// Main Function for running the Script
-async function downloadsOrganizer() {
-    const outputWindow = document.getElementById("output");
+        const statusEl = document.createElement("h2");
+        statusEl.innerText = data.status;
+        outputWindow.appendChild(statusEl);
 
-    // RUNNING STATE
-    scriptBtn.disabled = true;
-    scriptBtn.innerText = "Running...";
-    outputWindow.classList.add("outputStyle");
-    outputWindow.innerHTML = "Please wait...";
+        const messageEl = document.createElement("h3");
+        messageEl.innerText = data.error;
+        outputWindow.appendChild(messageEl);
 
-    try {
-        const response = await fetch("/api/downloads_Organizer/start", { method: "POST" });
-        checkStatus();
-        const data = await response.json();
-
-        if (!response.ok) {
-            outputWindow.innerHTML = "";
-
-            const statusEl = document.createElement("h2");
-            statusEl.innerText = data.status;
-            outputWindow.appendChild(statusEl);
-
-            const errorMessage = document.createElement("h3");
-            errorMessage.innerText = data.message;
-            outputWindow.appendChild(errorMessage);
-
-            scriptBtn.innerText = "Try Again";
-            return;
-        }
-
-    
+    }
+    else if(data.status === "completed"){
         // SUCCESS UI
         outputWindow.innerHTML = "";
 
@@ -53,7 +39,7 @@ async function downloadsOrganizer() {
         outputWindow.appendChild(statusEl);
 
         const messageEl = document.createElement("h3");
-        messageEl.innerText = data.message;
+        messageEl.innerText = "Folder Organized Successfully";
         outputWindow.appendChild(messageEl);
 
         const detailsList = document.createElement("ul");
@@ -66,6 +52,22 @@ async function downloadsOrganizer() {
         }
 
         outputWindow.appendChild(detailsList);
+    }
+}
+
+// Main Function for running the Script
+async function downloadsOrganizer() {
+    // RUNNING STATE
+    scriptBtn.disabled = true;
+    scriptBtn.innerText = "Running...";
+    outputWindow.classList.add("outputStyle");
+    outputWindow.innerHTML = "Please wait...";
+
+    try {
+        const response = await fetch("/api/downloads_Organizer/start", { method: "POST" });
+        const data = await response.json();
+
+        checkStatus(data.task_id);
 
     } catch (error) {
         // NETWORK / SERVER ERROR
@@ -78,3 +80,5 @@ async function downloadsOrganizer() {
 }
 
 scriptBtn.addEventListener("click", downloadsOrganizer);
+
+
