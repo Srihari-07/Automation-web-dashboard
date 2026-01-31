@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %} {% endblock %}</title>
+	 <link rel="stylesheet" href="static/css/shared.css">
+
+</head>
+<body>
+	<header>
+		
+	</header>
+	
+	<div id = "mainTitle">
+		 {% block content %}{% endblock %}
+	</div>
+
+	<div class = "container">
+		<button id = "scriptBtn">{%block btnText%} {%endblock%}</button>
+	</div>
+
+</body>
+</html>

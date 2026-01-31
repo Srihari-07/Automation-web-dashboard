@@ -1,0 +1,10 @@
+#Virtual environment
+venv/
+.venv/
+
+.env
+
+*.log
+logs/
+.OS_Store
+Thumbs.db

@@ -1,0 +1,22 @@
+#mainTitle{
+	text-align: center;
+	color: #33333b;
+	font-weight: 600;
+	font-family: Graphik,Arial,sans-serif;
+    margin: 0px 1rem;
+}
+.container{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+}
+#scriptBtn{
+	display: inline;
+    width: 7rem;
+    height: 4rem;
+    border-radius: 1rem;
+    background-color: red;
+    color: white;
+    border: 2px solid white;
+}

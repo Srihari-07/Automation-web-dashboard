@@ -1,0 +1,31 @@
+*{
+	box-sizing: border-box; 
+}
+body{
+	margin: 0px;
+	padding: 0px;
+}
+#mainTitle{
+	text-align: center;
+	color: #33333b;
+	font-weight: 600;
+	font-family: Graphik,Arial,sans-serif;
+    margin: 0px 1rem;
+}
+
+#automationTasksContainer{
+	display: flex;
+    gap: 3rem;
+    padding: 0 4rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+.automationTasks{
+	width: 11rem;
+    height: 11rem;
+    border: 2px solid green;
+    border-radius: 13px;
+}
+.homeBtns{
+
+}
