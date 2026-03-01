@@ -1,31 +1,34 @@
-from run import create_app # Function handling the DB Configs and Object
-from models import db, AutomationTask # For connecting Database to the worker
+from services.job_manager import getTask,updateDB_status,updateDB_progress
 
 from AutomationEngine.downloadsOrganizer import organize_Downloads # Actual Automation Script
 
-# Creating an app instance so the worker can use the DB settings
-app = create_app()
-
+# Worker function for Organizing Download's Folder
 def downloadsOrganizer(task_id):
-    # The worker MUST work inside the "app_context" to talk to the DB
-    with app.app_context():
-        task = AutomationTask.query.get(task_id)
-        if not task: return
+    currentTask = getTask(task_id)
+    
 
-        task.status = "running"
-        db.session.commit()
+        # Updates the Database based on the progress of the work done.
+        def report_progress(percent):
+            updateDB_progress(currentTask,percent)
 
         # --- Automation Logic here ---
         try:
-			results = organize_Downloads() # Returns Dictionary of files moved and skipped
-			
-		except Exception as e:
-			# Code here
-        db.session.commit() # Save progress to SQLite
+            updateDB_status(currentTask, "running")
 
-        task.status = "completed"
-        task.progress = 100
-        db.session.commit()
+            # Automation Script
+            results = organize_Downloads(
+                progress_callback=report_progress
+            )
+
+            currentTask.status = "completed"
+            currentTask.progress = 100
+            db.session.commit()  # Save progress to SQLite
+        except Exception as e:
+            currentTask.status = "failed"
+            db.session.commit()
+
+        
+
 
 
 

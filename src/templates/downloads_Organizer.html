@@ -6,10 +6,12 @@
 <h3> Organize your Downloads with just a click</h3>
 {% endblock %}
 
-{%block btnText%} Start Script {%endblock%}
+{%block btnText%} Run Script {%endblock%}
 
 {% block taskStatus %}
-
+	<div id="progress-container">
+        <div id="progress-bar" class = "progress-bar" style="width: 0%;"></div>
+    </div>
 {% endblock %}
 
 {% block output %}

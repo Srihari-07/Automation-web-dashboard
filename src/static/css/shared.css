@@ -40,10 +40,27 @@ body{
     margin-top: -1rem;
     margin-bottom: 2rem;
 }
-.outputStyle{
-    border: 2px solid #36a343;
+.progress-container{
+    width: 30%;
+    background-color: #e0e0e0;
+    border-radius: 20px;
+    margin: 15px 0;
+    height: 12px;
+    overflow: hidden;
     margin: 0 auto;
-    width: 21rem;
+}
+.progress-bar{
+    height: 100%;
+    background: linear-gradient(90deg, #9f2f44 0%, #ffb308 100%);
+    width: 0%;
+    border-radius: 20px;
+    transition: width 0.4s ease-in-out; 
+}
+.outputStyle{
+    border: 2px solid #723d0e;
+    margin: 0 auto;
+    margin-top: 3rem;
+    width: 26rem;
     border-radius: 1rem;
     padding: 2rem;
     font-family: system-ui;

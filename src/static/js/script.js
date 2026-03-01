@@ -1,84 +1,71 @@
 const scriptBtn = document.getElementById("scriptBtn");
 const outputWindow = document.getElementById("output");
 const taskStatus = document.getElementById("taskStatus");
+const progressBar = document.getElementById("progress-bar");
 
-// Frontend POLLING
-async function checkStatus(taskID){
-    taskStatus.classList.add("taskStatus"); // Panel to show the Task Status.
-
-    const response = await fetch(`/api/downloads_Organizer/status/${taskID}`, { method: "GET" });
-    const data = await response.json();
-
-    taskStatus.innerText = data.status;
-
-    if(!response.ok){  // If the response code is between 400 to 500
-        outputWindow.innerHTML = data.error;
-        return;
-    }
-    else if(data.status === "running"){
-        setTimeout(() => checkStatus(taskID), 1000);
-    }
-    else if(data.status === "failed"){
-        outputWindow.innerHTML = "";
-
-        const statusEl = document.createElement("h2");
-        statusEl.innerText = data.status;
-        outputWindow.appendChild(statusEl);
-
-        const messageEl = document.createElement("h3");
-        messageEl.innerText = data.error;
-        outputWindow.appendChild(messageEl);
-
-    }
-    else if(data.status === "completed"){
-        // SUCCESS UI
-        outputWindow.innerHTML = "";
-
-        const statusEl = document.createElement("h2");
-        statusEl.innerText = data.status;
-        outputWindow.appendChild(statusEl);
-
-        const messageEl = document.createElement("h3");
-        messageEl.innerText = "Folder Organized Successfully";
-        outputWindow.appendChild(messageEl);
-
-        const detailsList = document.createElement("ul");
-        detailsList.classList.add("textStyles");
-
-        for (const [key, value] of Object.entries(data.result)) {
-            const li = document.createElement("li");
-            li.innerText = `${key}: ${value}`;
-            detailsList.appendChild(li);
-        }
-
-        outputWindow.appendChild(detailsList);
-    }
-}
+scriptBtn.addEventListener("click", downloadsOrganizer);
 
 // Main Function for running the Script
 async function downloadsOrganizer() {
     // RUNNING STATE
     scriptBtn.disabled = true;
+    progressBar.style.width = 0;
     scriptBtn.innerText = "Running...";
     outputWindow.classList.add("outputStyle");
-    outputWindow.innerHTML = "Please wait...";
+    outputWindow.style.borderColor = "#723d0e";
 
     try {
         const response = await fetch("/api/downloads_Organizer/start", { method: "POST" });
         const data = await response.json();
-
-        checkStatus(data.task_id);
-
+        if(data.task_id){
+            monitorTask(data.task_id , data.message);
+        }
     } catch (error) {
-        // NETWORK / SERVER ERROR
         outputWindow.innerText = "Something went wrong";
     }
-
-    // BACK TO IDLE
-    scriptBtn.disabled = false;
-    scriptBtn.innerText = "Run Again";
 }
 
-scriptBtn.addEventListener("click", downloadsOrganizer);
+
+// Frontend POLLING
+async function monitorTask(taskId,message){
+    const progressContainer = document.getElementById("progress-container");
+    progressContainer.classList.add("progress-container");
+
+    outputWindow.innerHTML = message;
+
+     // Create a timer that runs every 1.5 seconds
+    const interval = setInterval(async () => {
+        try {
+            // 1. Fetch the latest status from your Status API
+            const response = await fetch(`/api/status/${taskId}`,{ method: "GET" });
+            const data = await response.json();
+
+            // 2. Update the Progress Bar width
+            progressBar.style.width = `${data.progress}%`;
+
+            // 3. Check if we should stop the loop
+            if (data.status === 'completed') {
+                clearInterval(interval); // Stop asking
+                outputWindow.innerHTML = "<h2> Download's Folder Organized!</h2> <h3> (Go Check it out)</h3>";
+                outputWindow.style.borderColor = "#1bff00";
+            }
+            else if (data.status === 'failed') {
+                clearInterval(interval);
+                taskStatus.innerText = "Error: Task Failed";
+                outputWindow.style.borderColor = "#ff0000";
+            }
+             // BACK TO IDLE
+            scriptBtn.disabled = false;
+            scriptBtn.innerText = "Run Again";
+
+        } 
+        catch (error) {
+            console.error("Polling error:", error);
+            clearInterval(interval);
+        }
+    }, 1500); 
+
+}
+
 
 

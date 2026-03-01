@@ -28,7 +28,7 @@ body{
     padding-top: 1rem;
     width: 13rem;
     height: 14rem;
-    border: 3px solid #642d1d;
+    border: 3px solid #c98b00;
     border-radius: 13px;
 }
 .automationTask{
@@ -39,7 +39,7 @@ body{
 	width: 6rem;
     height: 2rem;
     border-radius: 0.5rem;
-    border: 2px solid #b38d05;
-    background-color: maroon;
+    border: 2px solid #ffffff;
+    background-color: #0c5487;
     color: white;
 }
