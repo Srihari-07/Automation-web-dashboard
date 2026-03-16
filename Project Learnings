@@ -1,0 +1,27 @@
+Level 1 : Building software that behaves safely in the presence of real humans.
+Learnings:
+# State Awareness (FeedBack to user at every step)
+# Guarding the System (Assume user will do wrong things)
+# Feedback & Communication (user must never wonder: "did it worked?") (state awareness is solution)
+# Ownership Thinking (Know what will happen exactly at each step when a user comes in)
+# Reliability over Features (Anyone can implement 10 features but can you make any one super relaible?)
+
+💎 Real truth
+Level 1 is small in code.
+But HUGE in engineering philosophy.
+
+********************************************************
+
+Level 2 : Make Work Observable (start job → track lifecycle → react to updates)
+Learnings : 
+# Backend becomes the Source of Truth (Frontend repeatly ask what is the status and backend answers)
+# Starting work ≠ finishing work (This single idea changes how large systems are designed)
+# We separate TRIGGER from OBSERVATION (2 responsibilties : start the job / Watch the job)(Different API's for both)
+# Polling is asking reality repeatedly
+# Life Cycle thinking (Every Task is divided into phases)(idle->running->success/failed)(Everything builds upon lifecycle.)
+
+Background Job Architecture:
+Task Store (Source of Truth): dictionary for now -> later real Database
+Start API -> Job Manager (Creates Task ID and triggers Worker) -> Worker Does the Work (Updates Status)-> Status API (Sends Status of main job to frontend) 
+
+

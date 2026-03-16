@@ -13,11 +13,8 @@ def get_status(task_id):
 # Start API:
 @api_bp.route("/downloads_Organizer/start", methods=["POST"])
 def start_download_organizer():
-    new_task = createJob()
+    new_task = createJob("organize_downloads")
     return jsonify({"task_id": new_task.id, "message": "Automation started"}),200
-
-
-
 
 
 	

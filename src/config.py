@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-# Get the folder where this file lives
+# Get the folder where this current file lives (location to save the .db file)
 basedir = Path(__file__).resolve().parent
 
 class Config:
