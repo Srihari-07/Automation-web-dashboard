@@ -1,0 +1,1 @@
+This dashboard provides a unified interface for monitoring, triggering, and managing various automation scripts and processes. It is designed to simplify complex workflows by offering real-time visibility and control. 
