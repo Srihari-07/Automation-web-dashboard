@@ -1,5 +1,5 @@
 from flask import Flask
-from config import Config # For Database Configuration Settings
+from configs.DBConfig import Config # For Database Configuration Settings
 from models import db # For Database Object
 # Blueprints for accessing the API Routes
 from view_api import view_bp
