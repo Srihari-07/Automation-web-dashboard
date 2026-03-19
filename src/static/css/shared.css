@@ -4,8 +4,8 @@
 body{
     margin: 0px;
     padding: 0px;
-    background-color: #221d1d;
-    color : white;
+    background-color: #FFFFFF;
+    color : #2C3E50;
 }
 #mainTitle{
 	text-align: center;
@@ -20,14 +20,25 @@ body{
     margin-top: 3rem;
 }
 #scriptBtn{
-	display: inline;
-    width: 8rem;
+	    display: inline;
+    width: 9rem;
     height: 3rem;
     border-radius: 1rem;
-    background-color: #1f89d5;
-    color: white;
-    border: 2px solid white;
+    border: 2px solid #ffffff;
+    background-color: #1E3A6F;
+    color: #FFFFFF;
+    padding-left: 1.3rem;
+    transition: all 0.25s ease;
+    cursor: pointer;
     margin-bottom: 3rem;
+    padding-right: 1.2rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+#scriptBtn:hover{
+      background: #2C4C8C; /* Lighter navy */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(30, 58, 111, 0.3);
 }
 .taskStatus{  
     border: 2px solid #ff0000;

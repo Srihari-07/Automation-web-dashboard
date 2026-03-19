@@ -4,14 +4,16 @@
 body{
 	margin: 0px;
 	padding: 0px;
-    background-color: #221d1d;
-    color : white;
+    background-color: #FFFFFF;
+    color : #2C3E50;
 }
 #mainTitle{
 	text-align: center;
 	font-weight: 600;
 	font-family: Graphik,Arial,sans-serif;
     margin: 0px 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.03);
+    color: #1E3A6F;
 }
 
 #automationTasksContainer{
@@ -28,18 +30,47 @@ body{
     padding-top: 1rem;
     width: 13rem;
     height: 14rem;
-    border: 3px solid #c98b00;
-    border-radius: 13px;
+    border: 1px solid #E8E6E1;
+    border-radius: 16px;
+    background-color: #F2F5F9;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.automationTasks:hover {
+  transform: scale(1.02);
+  box-shadow: 0 25px 30px -12px rgba(0,0,0,0.15);
 }
 .automationTask{
 	    text-align: center;
     font-family: system-ui;
 }
 .homeBtns{
-	width: 6rem;
-    height: 2rem;
-    border-radius: 0.5rem;
+	width: 8rem;
+    height: 2.2rem;
+    border-radius: 1rem;
     border: 2px solid #ffffff;
-    background-color: #0c5487;
-    color: white;
+    background-color: #1E3A6F;
+    color: #FFFFFF;
+    padding-left: 1.3rem;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+
+.homeBtns::after {
+  content: "→";
+  font-size: 18px;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.25s ease;
+}
+.homeBtns:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+  margin-left: 8px; /* Space appears on hover */
+}
+.homeBtns:hover {
+  background: #2C4C8C; /* Lighter navy */
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(30, 58, 111, 0.3);
 }
